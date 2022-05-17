@@ -1,0 +1,3 @@
+[submodule "manifestparse"]
+	path = manifestparse
+	url = https://github.com/microsoftv/manifestparse.git
