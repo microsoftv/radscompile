@@ -12,7 +12,7 @@ Arguments:
 import os
 import shutil
 import sys
-import manifestparse
+import manifestparse.manifestparse as parser
 
 # realm index map
 REALMS = {
@@ -82,7 +82,7 @@ def compile_files(file_list, realm, project, version, target_dir):
         sys.exit(1)
     
     # get project manifest
-    project_manifest = manifestparse.ReleaseManifestFile(project_path + '\\releasemanifest')
+    project_manifest = parser.ReleaseManifestFile(project_path + '\\releasemanifest')
     
     for directory in project_manifest.mainDirectories:
         compile_directory(directory, '', realm, project, version, target_dir)
