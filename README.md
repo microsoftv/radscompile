@@ -3,6 +3,12 @@ This project is designed to follow the format put forth by the [public RADS web 
 
 Given a realm directory from the archive, this project will compile all of the project files for a given solution.
 
+# Setup
+* Download and install the latest python version (last tested with [3.10.1](https://www.python.org/downloads/release/python-3101/)).
+* `git clone` [this repository](https://github.com/microsoftv/radscompile.git)
+* `git submodule update --init --recursive`
+* Move to [Usage](https://github.com/microsoftv/radscompile/edit/main/README.md#usage) below.
+
 # Usage:
 You must extract the realm you want from the archive first as well as the file hash list.
 
