@@ -10,12 +10,10 @@ Given a realm directory from the archive, this project will compile all of the p
 * Move to [Usage](https://github.com/microsoftv/radscompile/edit/main/README.md#usage) below.
 
 # Usage:
-You must extract the realm you want from the archive first as well as the file hash list.
+You must extract the realm you want from the archive first.
 
 ## Command:
-`python -m radscomp RADS_FILEHASHES REALM SOLUTION_NAME VERSION TARGET_DIR`
-* **RADS_FILEHASHES** -- path to the text file containing file hashes of all realms and versions.
-  * ex: `"RADS_Hashes_MD5.txt"`
+`python -m radscomp REALM SOLUTION_NAME VERSION TARGET_DIR`
 * **REALM_DIR** -- directory of the realm containing solution and project files.
   * ex: `"path/to/live"`
 * **SOLUTION_NAME** -- name of the solution to target.
