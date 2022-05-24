@@ -1,8 +1,7 @@
 """Usage:
-  python -m radscompile <RADS_FILEHASHES> <REALM_DIR> <SOLUTION_NAME> <VERSION> <TARGET_DIR>
+  python -m radscompile <REALM_DIR> <SOLUTION_NAME> <VERSION> <TARGET_DIR>
 
 Arguments:
-  <RADS_FILEHASHES> -- path to the text file containing file hashes of all realms and versions.
   <REALM_DIR> -- directory of the realm containing solution and project files.
   <SOLUTION_NAME> -- name of the solution to target.
   <VERSION> -- version of the solution to target.
@@ -57,7 +56,7 @@ def compile_directory(directory, parent_dir, realm, project, version, target_dir
         if (file.version > 255):
             file_version = '0.0.1.' + str(file.version - 256)
 
-        copy_path = sys.argv[2] + '\\projects\\' + project + '\\releases\\' + file_version + '\\files' + directory_path + file.name
+        copy_path = sys.argv[1] + '\\projects\\' + project + '\\releases\\' + file_version + '\\files' + directory_path + file.name
         paste_path = target_dir + '\\' + realm + '\\projects\\' + project + '\\releases\\' + version + directory_path + file.name
 
         print("Copy file: %s" % paste_path)
@@ -70,11 +69,11 @@ def compile_directory(directory, parent_dir, realm, project, version, target_dir
         compile_directory(subdirectory, directory_path, realm, project, version, target_dir)
 
 
-def compile_files(file_list, realm, project, version, target_dir):
+def compile_files(realm, project, version, target_dir):
     if not os.path.exists(target_dir):
         os.makedirs(target_dir)
     
-    project_path = sys.argv[2] + '\\projects\\' + project + '\\releases\\' + version
+    project_path = sys.argv[1] + '\\projects\\' + project + '\\releases\\' + version
 
     if (not os.path.exists(project_path)):
         print("Invalid version %s for project %s" % (version, project))
@@ -146,14 +145,14 @@ def read_manifest(solution_path):
 
 def main():
 
-    if len(sys.argv) not in (2, 3, 4, 5, 6):
+    if len(sys.argv) not in (2, 3, 4, 5):
         print("Invalid number of arguments.")
         print(__doc__)
         sys.exit(1)
 
     if len(sys.argv) >= 4:
         # get realm name from end of path
-        realm = os.path.basename(os.path.normpath(sys.argv[2]))
+        realm = os.path.basename(os.path.normpath(sys.argv[1]))
 
         # curr_project = ""
         # versions = []
@@ -172,15 +171,15 @@ def main():
             print("Invalid realm %s" % realm)
             print(__doc__)
             sys.exit(1)
-        version = sys.argv[4]
-        solution_path = sys.argv[2] + '\\solutions\\' + sys.argv[3] + '\\releases\\' + version
+        version = sys.argv[3]
+        solution_path = sys.argv[1] + '\\solutions\\' + sys.argv[2] + '\\releases\\' + version
         if not os.path.exists(solution_path):
             print("Invalid version %s for realm %s" % (version, realm))
             print(__doc__)
             sys.exit(1)
-        print("Compiling %s version %s for %s" % (realm, version, sys.argv[3]))
+        print("Compiling %s version %s for %s" % (realm, version, sys.argv[2]))
         for project, version in read_manifest(solution_path):
-            compile_files(sys.argv[1], realm, project, version, sys.argv[5])
+            compile_files(realm, project, version, sys.argv[4])
     else:
         print("Invalid arguments given for realm/version.")
         print(__doc__)
